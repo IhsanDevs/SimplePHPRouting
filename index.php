@@ -11,7 +11,7 @@ define( 'APP_NAME', 'Ihsan Devs' );
 function page()
 {
     $folder  = 'pages';
-    $default = 'index.php';
+    $default = 'Index.php';
 
     $page = $_SERVER['REQUEST_URI'];
 
