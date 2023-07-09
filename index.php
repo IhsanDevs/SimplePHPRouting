@@ -28,9 +28,30 @@ function page()
         return "errors/404.php";
     }
 
+    $files   = scandir( $folder );
+    $newFile = [];
+    foreach ( $files as $file ) {
+        if ( $file == '.' || $file == '..' ) {
+            continue;
+        }
+
+        $file = str_replace( '.php', '', $file );
+        $file = strtolower( $file );
+
+        $newFile[] = $file;
+    }
+
+
     // if file exists, return $folder/$page.php
-    if ( file_exists( $folder . '/' . $page . '.php' ) ) {
-        return $folder . '/' . $page . '.php';
+    if ( in_array( $page, $newFile ) ) {
+        try {
+            return $folder . '/' . $page . '.php';
+        }
+        catch (Exception $e) {
+            // convert first letter to uppercase in $page
+            $page = ucfirst( $page );
+            return $folder . '/' . $page . '.php';
+        }
     } else {
         return "errors/404.php";
     }
